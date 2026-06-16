@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Express backend for the Tech Launchpad full-stack CRUD application",
+  "description": "Express backend for the Tech Community full-stack CRUD application",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",

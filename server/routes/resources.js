@@ -13,6 +13,8 @@ const router = express.Router();
 const {
   getResources,
   createResource,
+  updateResource,
+  deleteResource,
 } = require("../controllers/resourceController");
 
 // GET all resources
@@ -20,6 +22,12 @@ router.get("/", getResources);
 
 // POST a new resource
 router.post("/", createResource);
+
+// PUT (update) a resource by id
+router.put("/:id", updateResource);
+
+// DELETE a resource by id
+router.delete("/:id", deleteResource);
 
 module.exports = router;
 

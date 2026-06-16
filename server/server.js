@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Health / welcome route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Tech Launchpad API 🚀' });
+  res.json({ message: 'Welcome to the Tech Community API 🚀' });
 });
 
 // API route modules (CRUD handlers will be added to resources.js later)
