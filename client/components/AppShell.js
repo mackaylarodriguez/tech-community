@@ -8,9 +8,9 @@ export default function AppShell({ children }) {
     <AuthProvider>
       <header className="navbar">
         <div className="navbar-inner">
-          <div>
+          <div className="navbar-brand">
             <h1>Tech Community</h1>
-            <p className="text-secondary">
+            <p className="text-secondary navbar-tagline">
               A community resource board for people in tech
             </p>
           </div>

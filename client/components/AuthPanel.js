@@ -47,9 +47,11 @@ export default function AuthPanel() {
 
   if (user) {
     return (
-      <div className="navbar-auth">
-        <span className="text-secondary">Signed in as {user.email}</span>
-        <button className="btn btn-secondary" type="button" onClick={logout}>
+      <div className="navbar-auth navbar-auth-logged-in">
+        <span className="text-secondary navbar-user-email">
+          {user.email}
+        </span>
+        <button className="btn btn-secondary btn-sm" type="button" onClick={logout}>
           Log out
         </button>
       </div>
@@ -61,7 +63,7 @@ export default function AuthPanel() {
       {!showForm ? (
         <div className="btn-group navbar-auth-buttons">
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-sm"
             type="button"
             onClick={() => {
               setMode("login");
@@ -72,7 +74,7 @@ export default function AuthPanel() {
             Log in
           </button>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
             type="button"
             onClick={() => {
               setMode("register");
