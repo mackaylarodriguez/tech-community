@@ -3,7 +3,12 @@
  *
  * onEdit is a callback — when Edit is clicked, the parent decides what to do.
  */
-export default function ResourceCard({ resource, onEdit, onDelete }) {
+export default function ResourceCard({
+  resource,
+  canModify,
+  onEdit,
+  onDelete,
+}) {
   return (
     <article className="card">
       <h3>{resource.title}</h3>
@@ -24,14 +29,16 @@ export default function ResourceCard({ resource, onEdit, onDelete }) {
         Visit resource →
       </a>
 
-      <div className="btn-group">
-        <button className="btn btn-primary" type="button" onClick={onEdit}>
-          Edit
-        </button>
-        <button className="btn btn-danger" type="button" onClick={onDelete}>
-          Delete
-        </button>
-      </div>
+      {canModify && (
+        <div className="btn-group">
+          <button className="btn btn-primary" type="button" onClick={onEdit}>
+            Edit
+          </button>
+          <button className="btn btn-danger" type="button" onClick={onDelete}>
+            Delete
+          </button>
+        </div>
+      )}
     </article>
   );
 }

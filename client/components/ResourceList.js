@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { getResources } from "@/lib/api";
+import { canModifyResource } from "@/lib/auth";
 import { CATEGORIES } from "@/lib/constants";
 import ResourceCard from "./ResourceCard";
 
-export default function ResourceList({ refreshKey = 0, onEdit, onDelete }) {
+export default function ResourceList({ refreshKey = 0, user, onEdit, onDelete }) {
   const [resources, setResources] = useState([]);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
@@ -74,6 +75,7 @@ export default function ResourceList({ refreshKey = 0, onEdit, onDelete }) {
             <ResourceCard
               key={resource.id}
               resource={resource}
+              canModify={canModifyResource(resource, user)}
               onEdit={() => onEdit(resource)}
               onDelete={() => onDelete(resource)}
             />

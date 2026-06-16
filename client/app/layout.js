@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,13 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="navbar">
-          <h1>Tech Community</h1>
-          <p className="text-secondary">
-            A community resource board for people in tech
-          </p>
-        </header>
-        <main className="page">{children}</main>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

@@ -5,66 +5,104 @@
  * We never call Supabase directly from the browser.
  */
 
-// NEXT_PUBLIC_ makes this value available in the browser (required by Next.js).
+import { getAuthHeaders } from "./auth";
+
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-/**
- * Fetches all resources from the Express API.
- * Calls: GET /api/resources
- */
+async function parseError(response, fallback) {
+  try {
+    const data = await response.json();
+    return data.message || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
 export async function getResources() {
   const response = await fetch(`${API_URL}/api/resources`);
 
   if (!response.ok) {
-    throw new Error("Failed to fetch resources");
+    throw new Error(await parseError(response, "Failed to fetch resources"));
   }
 
   return response.json();
 }
 
-/**
- * Creates a new resource via the Express API.
- * Calls: POST /api/resources
- */
+export async function register(email, password) {
+  const response = await fetch(`${API_URL}/api/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, "Failed to register"));
+  }
+
+  return response.json();
+}
+
+export async function login(email, password) {
+  const response = await fetch(`${API_URL}/api/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, "Failed to log in"));
+  }
+
+  return response.json();
+}
+
+export async function getMe() {
+  const response = await fetch(`${API_URL}/api/auth/me`, {
+    headers: getAuthHeaders(),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, "Failed to fetch user"));
+  }
+
+  return response.json();
+}
+
 export async function createResource(data) {
   const response = await fetch(`${API_URL}/api/resources`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create resource");
+    throw new Error(await parseError(response, "Failed to create resource"));
   }
 
   return response.json();
 }
 
-/**
- * Updates an existing resource via the Express API.
- * Calls: PUT /api/resources/:id
- */
 export async function updateResource(id, data) {
   const response = await fetch(`${API_URL}/api/resources/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: getAuthHeaders(),
     body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to update resource");
+    throw new Error(await parseError(response, "Failed to update resource"));
   }
 
   return response.json();
 }
 
-/** DELETE /api/resources/:id */
 export async function deleteResource(id) {
   const response = await fetch(`${API_URL}/api/resources/${id}`, {
     method: "DELETE",
+    headers: getAuthHeaders(),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to delete resource");
+    throw new Error(await parseError(response, "Failed to delete resource"));
   }
 }

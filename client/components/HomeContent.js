@@ -9,10 +9,12 @@
 
 import { useState } from "react";
 import { deleteResource } from "@/lib/api";
+import { useAuth } from "./AuthProvider";
 import AddResourceForm from "./AddResourceForm";
 import ResourceList from "./ResourceList";
 
 export default function HomeContent() {
+  const { user } = useAuth();
   const [refreshKey, setRefreshKey] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [editingResource, setEditingResource] = useState(null);
@@ -40,18 +42,28 @@ export default function HomeContent() {
   async function handleDelete(resource) {
     if (!confirm(`Delete "${resource.title}"?`)) return;
 
-    await deleteResource(resource.id);
-    setRefreshKey((key) => key + 1);
+    try {
+      await deleteResource(resource.id);
+      setRefreshKey((key) => key + 1);
+    } catch (err) {
+      alert(err.message);
+    }
   }
 
   return (
     <>
-      {!showForm && (
+      {!showForm && user && (
         <div className="page-actions">
           <button className="btn btn-primary" onClick={openAddForm}>
             + Add Opportunity
           </button>
         </div>
+      )}
+
+      {!showForm && !user && (
+        <p className="text-secondary page-actions">
+          Log in to add, edit, or delete opportunities.
+        </p>
       )}
 
       {showForm && (
@@ -65,6 +77,7 @@ export default function HomeContent() {
 
       <ResourceList
         refreshKey={refreshKey}
+        user={user}
         onEdit={openEditForm}
         onDelete={handleDelete}
       />
