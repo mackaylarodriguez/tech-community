@@ -342,6 +342,18 @@ h3 {
   margin-top: 1.25rem;
 }
 
+.modal-form {
+  max-width: 520px;
+}
+
+.form-modal-inner {
+  margin-bottom: 0;
+}
+
+.form-modal-inner h3 {
+  padding-right: 2rem;
+}
+
 /* ============================================
    6. FORMS
    ============================================ */

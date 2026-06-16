@@ -11,6 +11,7 @@ import { useState } from "react";
 import { deleteResource } from "@/lib/api";
 import { useAuth } from "./AuthProvider";
 import AddResourceForm from "./AddResourceForm";
+import FormModal from "./FormModal";
 import ResourceList from "./ResourceList";
 
 export default function HomeContent() {
@@ -52,7 +53,7 @@ export default function HomeContent() {
 
   return (
     <>
-      {!showForm && user && (
+      {user && (
         <div className="page-actions">
           <button className="btn btn-primary" onClick={openAddForm}>
             + Add Opportunity
@@ -60,19 +61,21 @@ export default function HomeContent() {
         </div>
       )}
 
-      {!showForm && !user && (
+      {!user && (
         <p className="text-secondary page-actions">
           Log in to add, edit, or delete opportunities.
         </p>
       )}
 
       {showForm && (
-        <AddResourceForm
-          key={editingResource?.id ?? "new"}
-          resource={editingResource}
-          onSuccess={handleSuccess}
-          onCancel={closeForm}
-        />
+        <FormModal onClose={closeForm}>
+          <AddResourceForm
+            key={editingResource?.id ?? "new"}
+            resource={editingResource}
+            onSuccess={handleSuccess}
+            onCancel={closeForm}
+          />
+        </FormModal>
       )}
 
       <ResourceList

@@ -65,7 +65,7 @@ export default function AddResourceForm({ resource, onSuccess, onCancel }) {
   }
 
   return (
-    <form className="form card" onSubmit={handleSubmit}>
+    <form className="form form-modal-inner" onSubmit={handleSubmit}>
       <h3>{isEditing ? "Edit Opportunity" : "Add Opportunity"}</h3>
 
       <div className="form-group">
