@@ -41,15 +41,15 @@ const createResource = async (req, res) => {
     });
   }
 
-  const { title, organization, description, category, tech_area, url } =
+  const { title, organization, description, category, tech_area, url, location } =
     req.body;
 
   try {
     const result = await pool.query(
-      `INSERT INTO resources (title, organization, description, category, tech_area, url, user_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `INSERT INTO resources (title, organization, description, category, tech_area, url, location, user_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
-      [title, organization, description, category, tech_area, url, req.userId]
+      [title, organization, description, category, tech_area, url, location, req.userId]
     );
 
     res.status(201).json(result.rows[0]);
@@ -64,7 +64,7 @@ const createResource = async (req, res) => {
 // PUT /api/resources/:id
 const updateResource = async (req, res) => {
   const { id } = req.params;
-  const { title, organization, description, category, tech_area, url } =
+  const { title, organization, description, category, tech_area, url, location } =
     req.body;
 
   try {
@@ -83,10 +83,10 @@ const updateResource = async (req, res) => {
     const result = await pool.query(
       `UPDATE resources
        SET title = $1, organization = $2, description = $3,
-           category = $4, tech_area = $5, url = $6, updated_at = now()
-       WHERE id = $7
+           category = $4, tech_area = $5, url = $6, location = $7, updated_at = now()
+       WHERE id = $8
        RETURNING *`,
-      [title, organization, description, category, tech_area, url, id]
+      [title, organization, description, category, tech_area, url, location, id]
     );
 
     res.status(200).json(result.rows[0]);

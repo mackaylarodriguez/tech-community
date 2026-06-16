@@ -230,6 +230,11 @@ h3 {
   color: var(--primary);
   font-size: 0.9rem;
   font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.card-location {
+  font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
 

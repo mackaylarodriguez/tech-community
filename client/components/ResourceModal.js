@@ -47,6 +47,9 @@ export default function ResourceModal({
 
         <h2 id="modal-title">{resource.title}</h2>
         <p className="card-org">{resource.organization}</p>
+        {resource.location && (
+          <p className="card-location text-secondary">{resource.location}</p>
+        )}
 
         <div className="card-tags modal-tags">
           <span className="tag">{resource.category}</span>

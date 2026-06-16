@@ -14,6 +14,7 @@ import { CATEGORIES } from "@/lib/constants";
 const emptyForm = {
   title: "",
   organization: "",
+  location: "",
   description: "",
   category: "",
   tech_area: "",
@@ -24,6 +25,7 @@ function toFormData(resource) {
   return {
     title: resource.title,
     organization: resource.organization,
+    location: resource.location || "",
     description: resource.description,
     category: resource.category,
     tech_area: resource.tech_area,
@@ -91,6 +93,21 @@ export default function AddResourceForm({ resource, onSuccess, onCancel }) {
           id="organization"
           name="organization"
           value={form.organization}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="form-label" htmlFor="location">
+          Location
+        </label>
+        <input
+          className="form-input"
+          id="location"
+          name="location"
+          placeholder="e.g. Bronx, NY or Remote"
+          value={form.location}
           onChange={handleChange}
           required
         />

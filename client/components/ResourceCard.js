@@ -18,6 +18,9 @@ export default function ResourceCard({
       <div className="card-body">
         <h3>{resource.title}</h3>
         <p className="card-org">{resource.organization}</p>
+        {resource.location && (
+          <p className="card-location text-secondary">{resource.location}</p>
+        )}
         <p className="card-description text-secondary">{resource.description}</p>
 
         <div className="card-tags">
