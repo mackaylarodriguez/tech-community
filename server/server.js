@@ -11,6 +11,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const resourceRoutes = require('./routes/resources');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 
 // API route modules (CRUD handlers will be added to resources.js later)
 app.use('/api/resources', resourceRoutes);
+app.use('/api/auth', authRoutes);
 
 // Quick check: is the database connected? (helps debug deployment)
 app.get('/api/health', async (req, res) => {
