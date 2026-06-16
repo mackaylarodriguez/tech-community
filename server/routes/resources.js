@@ -16,18 +16,15 @@ const {
   updateResource,
   deleteResource,
 } = require("../controllers/resourceController");
+const authMiddleware = require("../middleware/authMiddleware");
 
-// GET all resources
+// GET all resources — public
 router.get("/", getResources);
 
-// POST a new resource
-router.post("/", createResource);
-
-// PUT (update) a resource by id
-router.put("/:id", updateResource);
-
-// DELETE a resource by id
-router.delete("/:id", deleteResource);
+// POST / PUT / DELETE — require login
+router.post("/", authMiddleware, createResource);
+router.put("/:id", authMiddleware, updateResource);
+router.delete("/:id", authMiddleware, deleteResource);
 
 module.exports = router;
 
