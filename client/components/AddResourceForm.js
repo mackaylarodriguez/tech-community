@@ -17,7 +17,6 @@ const emptyForm = {
   location: "",
   description: "",
   category: "",
-  tech_area: "",
   url: "",
 };
 
@@ -28,7 +27,6 @@ function toFormData(resource) {
     location: resource.location || "",
     description: resource.description,
     category: resource.category,
-    tech_area: resource.tech_area,
     url: resource.url,
   };
 }
@@ -147,21 +145,6 @@ export default function AddResourceForm({ resource, onSuccess, onCancel }) {
             </option>
           ))}
         </select>
-      </div>
-
-      <div className="form-group">
-        <label className="form-label" htmlFor="tech_area">
-          Tech Area
-        </label>
-        <input
-          className="form-input"
-          id="tech_area"
-          name="tech_area"
-          placeholder="e.g. Frontend, Python, Cloud"
-          value={form.tech_area}
-          onChange={handleChange}
-          required
-        />
       </div>
 
       <div className="form-group">

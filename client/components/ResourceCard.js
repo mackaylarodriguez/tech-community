@@ -25,7 +25,6 @@ export default function ResourceCard({
 
         <div className="card-tags">
           <span className="tag">{resource.category}</span>
-          <span className="tag">{resource.tech_area}</span>
         </div>
       </div>
 
