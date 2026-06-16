@@ -97,7 +97,27 @@ const login = async (req, res) => {
   }
 };
 
+// GET /api/auth/me — test route to verify middleware (Step 4)
+const getMe = async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, email, created_at FROM users WHERE id = $1",
+      [req.userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user: result.rows[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch user" });
+  }
+};
+
 module.exports = {
   register,
   login,
+  getMe,
 };
