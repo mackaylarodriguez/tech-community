@@ -27,6 +27,16 @@ app.get('/', (req, res) => {
 // API route modules (CRUD handlers will be added to resources.js later)
 app.use('/api/resources', resourceRoutes);
 
+// Quick check: is the database connected? (helps debug deployment)
+app.get('/api/health', async (req, res) => {
+  try {
+    await pool.query('SELECT NOW()');
+    res.json({ status: 'ok', database: 'connected' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
 app.listen(PORT, async () => {
   try {
     await pool.query("SELECT NOW()");
