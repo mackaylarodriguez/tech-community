@@ -5,12 +5,14 @@ import { getResources } from "@/lib/api";
 import { canModifyResource } from "@/lib/auth";
 import { CATEGORIES } from "@/lib/constants";
 import ResourceCard from "./ResourceCard";
+import ResourceModal from "./ResourceModal";
 
 export default function ResourceList({ refreshKey = 0, user, onEdit, onDelete }) {
   const [resources, setResources] = useState([]);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedResource, setSelectedResource] = useState(null);
 
   useEffect(() => {
     async function loadResources() {
@@ -76,11 +78,28 @@ export default function ResourceList({ refreshKey = 0, user, onEdit, onDelete })
               key={resource.id}
               resource={resource}
               canModify={canModifyResource(resource, user)}
+              onOpen={() => setSelectedResource(resource)}
               onEdit={() => onEdit(resource)}
               onDelete={() => onDelete(resource)}
             />
           ))}
         </div>
+      )}
+
+      {selectedResource && (
+        <ResourceModal
+          resource={selectedResource}
+          canModify={canModifyResource(selectedResource, user)}
+          onClose={() => setSelectedResource(null)}
+          onEdit={() => {
+            setSelectedResource(null);
+            onEdit(selectedResource);
+          }}
+          onDelete={async () => {
+            await onDelete(selectedResource);
+            setSelectedResource(null);
+          }}
+        />
       )}
     </>
   );

@@ -1,16 +1,20 @@
 /**
  * ResourceCard — displays ONE resource.
- *
- * onEdit is a callback — when Edit is clicked, the parent decides what to do.
+ * Click the card body to open full details in a modal.
  */
 export default function ResourceCard({
   resource,
   canModify,
+  onOpen,
   onEdit,
   onDelete,
 }) {
+  function stopClick(e) {
+    e.stopPropagation();
+  }
+
   return (
-    <article className="card">
+    <article className="card card-clickable" onClick={onOpen}>
       <div className="card-body">
         <h3>{resource.title}</h3>
         <p className="card-org">{resource.organization}</p>
@@ -23,17 +27,20 @@ export default function ResourceCard({
       </div>
 
       <div className="card-footer">
+        <span className="card-hint text-secondary">Tap for details</span>
+
         <a
           href={resource.url}
           target="_blank"
           rel="noopener noreferrer"
           className="card-link"
+          onClick={stopClick}
         >
           Visit resource →
         </a>
 
         {canModify && (
-          <div className="btn-group card-actions">
+          <div className="btn-group card-actions" onClick={stopClick}>
             <button className="btn btn-primary" type="button" onClick={onEdit}>
               Edit
             </button>
