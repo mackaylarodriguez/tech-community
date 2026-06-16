@@ -2,6 +2,8 @@
  * ResourceCard — displays ONE resource.
  * Click the card body to open full details in a modal.
  */
+import CategoryTag from "./CategoryTag";
+
 export default function ResourceCard({
   resource,
   canModify,
@@ -24,7 +26,7 @@ export default function ResourceCard({
         <p className="card-description text-secondary">{resource.description}</p>
 
         <div className="card-tags">
-          <span className="tag">{resource.category}</span>
+          <CategoryTag category={resource.category} />
         </div>
       </div>
 

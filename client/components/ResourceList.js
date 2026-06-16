@@ -3,13 +3,17 @@
 import { useEffect, useState } from "react";
 import { getResources } from "@/lib/api";
 import { canModifyResource } from "@/lib/auth";
-import { CATEGORIES } from "@/lib/constants";
 import ResourceCard from "./ResourceCard";
 import ResourceModal from "./ResourceModal";
 
-export default function ResourceList({ refreshKey = 0, user, onEdit, onDelete }) {
+export default function ResourceList({
+  refreshKey = 0,
+  category = "",
+  user,
+  onEdit,
+  onDelete,
+}) {
   const [resources, setResources] = useState([]);
-  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedResource, setSelectedResource] = useState(null);
@@ -48,27 +52,6 @@ export default function ResourceList({ refreshKey = 0, user, onEdit, onDelete })
 
   return (
     <>
-      <div className="filter-bar">
-        <label className="form-label" htmlFor="category-filter">
-          Filter by category
-        </label>
-        <select
-          id="category-filter"
-          className="form-input"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="">All categories</option>
-          {CATEGORIES.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <h3 className="section-title">All Opportunities</h3>
-
       {filtered.length === 0 ? (
         <p className="text-secondary">No resources in this category.</p>
       ) : (

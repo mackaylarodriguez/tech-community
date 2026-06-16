@@ -11,3 +11,8 @@ export const CATEGORIES = [
   "AI/ML",
   "DevOps",
 ];
+
+export function getCategoryClass(category) {
+  const slug = category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  return `tag-${slug}`;
+}

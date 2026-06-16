@@ -9,6 +9,7 @@
 
 import { useState } from "react";
 import { deleteResource } from "@/lib/api";
+import { CATEGORIES } from "@/lib/constants";
 import { useAuth } from "./AuthProvider";
 import AddResourceForm from "./AddResourceForm";
 import FormModal from "./FormModal";
@@ -19,6 +20,7 @@ export default function HomeContent() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [showForm, setShowForm] = useState(false);
   const [editingResource, setEditingResource] = useState(null);
+  const [category, setCategory] = useState("");
 
   function openAddForm() {
     setEditingResource(null);
@@ -53,19 +55,43 @@ export default function HomeContent() {
 
   return (
     <>
-      {user && (
-        <div className="page-actions">
-          <button className="btn btn-primary" onClick={openAddForm}>
-            + Add Opportunity
-          </button>
+      <div className="page-toolbar">
+        <div className="page-toolbar-intro">
+          <h2>Browse Opportunities</h2>
+          <p className="text-secondary">
+            Add and browse tech community resources.
+          </p>
         </div>
-      )}
 
-      {!user && (
-        <p className="text-secondary page-actions">
-          Log in to add, edit, or delete opportunities.
-        </p>
-      )}
+        <div className="page-toolbar-filter">
+          <select
+            id="category-filter"
+            className="form-input"
+            aria-label="Filter by category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All categories</option>
+            {CATEGORIES.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="page-toolbar-actions">
+          {user ? (
+            <button className="btn btn-primary" type="button" onClick={openAddForm}>
+              + Add Opportunity
+            </button>
+          ) : (
+            <p className="text-secondary toolbar-login-hint">
+              Log in to add opportunities
+            </p>
+          )}
+        </div>
+      </div>
 
       {showForm && (
         <FormModal onClose={closeForm}>
@@ -80,6 +106,7 @@ export default function HomeContent() {
 
       <ResourceList
         refreshKey={refreshKey}
+        category={category}
         user={user}
         onEdit={openEditForm}
         onDelete={handleDelete}

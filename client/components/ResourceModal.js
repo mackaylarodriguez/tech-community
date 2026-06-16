@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import CategoryTag from "./CategoryTag";
 
 export default function ResourceModal({
   resource,
@@ -52,7 +53,7 @@ export default function ResourceModal({
         )}
 
         <div className="card-tags modal-tags">
-          <span className="tag">{resource.category}</span>
+          <CategoryTag category={resource.category} />
         </div>
 
         <p className="modal-description">{resource.description}</p>
