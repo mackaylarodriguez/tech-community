@@ -143,7 +143,7 @@ h3 {
    5. CARDS
    ============================================ */
 .card {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -181,13 +181,15 @@ h3 {
 
 .card-description {
   display: -webkit-box;
-  flex: 1;
+  flex-shrink: 0;
   font-size: 0.8rem;
+  line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   line-clamp: 4;
   margin-top: 0.5rem;
-  max-height: calc(1.6em * 4);
+  min-height: calc(0.8rem * 1.5 * 4);
+  max-height: calc(0.8rem * 1.5 * 4);
   overflow: hidden;
 }
 
