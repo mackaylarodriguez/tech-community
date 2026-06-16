@@ -11,6 +11,11 @@ export const metadata = {
   description: "A community resource board for people in tech",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
