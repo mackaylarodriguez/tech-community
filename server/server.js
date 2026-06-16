@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 // API route modules (CRUD handlers will be added to resources.js later)
 app.use('/api/resources', resourceRoutes);
-console.log(pool);
+
 app.listen(PORT, async () => {
   try {
     await pool.query("SELECT NOW()");

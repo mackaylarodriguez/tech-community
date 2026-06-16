@@ -5,12 +5,19 @@
  * Each route will delegate request handling to the appropriate controller and
  * return JSON responses to the client.
  *
- * CRUD routes are not implemented yet.
  */
 
-const express = require('express');
-
+const express = require("express");
 const router = express.Router();
+
+const {
+  getResources,
+} = require("../controllers/resourceController");
+
+// GET all resources
+router.get("/", getResources);
+
+module.exports = router;
 
 // GET    /api/resources      — list all resources
 // GET    /api/resources/:id  — get one resource by id
@@ -18,4 +25,3 @@ const router = express.Router();
 // PUT    /api/resources/:id  — update a resource
 // DELETE /api/resources/:id  — delete a resource
 
-module.exports = router;
