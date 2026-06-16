@@ -12,10 +12,14 @@ const router = express.Router();
 
 const {
   getResources,
+  createResource,
 } = require("../controllers/resourceController");
 
 // GET all resources
 router.get("/", getResources);
+
+// POST a new resource
+router.post("/", createResource);
 
 module.exports = router;
 
