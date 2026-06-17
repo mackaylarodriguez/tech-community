@@ -13,16 +13,9 @@
 
 ## Screenshots
 
-Add 2–3 PNG screenshots to `docs/screenshots/` with these filenames, then they will show here automatically.
-
 | Home — browse & filter | Opportunity detail modal | Add / edit (logged in) |
 |:---:|:---:|:---:|
 | ![Home page](docs/screenshots/home.png) | ![Detail modal](docs/screenshots/detail-modal.png) | ![Add opportunity form](docs/screenshots/add-form.png) |
-
-**Suggested captures:**
-1. **home.png** — main page with the opportunity grid and category filter  
-2. **detail-modal.png** — card popup with full description and location  
-3. **add-form.png** — add/edit modal or logged-in navbar  
 
 ---
 
