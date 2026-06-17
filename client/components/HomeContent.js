@@ -58,9 +58,6 @@ export default function HomeContent() {
       <div className="page-toolbar">
         <div className="page-toolbar-intro">
           <h2>Browse Opportunities</h2>
-          <p className="text-secondary">
-            Add and browse tech community resources.
-          </p>
         </div>
 
         <div className="page-toolbar-filter">

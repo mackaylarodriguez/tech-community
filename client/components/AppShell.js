@@ -11,7 +11,7 @@ export default function AppShell({ children }) {
           <div className="navbar-brand">
             <h1>Tech Community</h1>
             <p className="text-secondary navbar-tagline">
-              A community resource board for people in tech
+              Find programs, jobs, and resources in tech
             </p>
           </div>
           <AuthPanel />
