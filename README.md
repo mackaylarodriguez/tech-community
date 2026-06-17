@@ -11,6 +11,21 @@
 
 ---
 
+## Screenshots
+
+Add 2–3 PNG screenshots to `docs/screenshots/` with these filenames, then they will show here automatically.
+
+| Home — browse & filter | Opportunity detail modal | Add / edit (logged in) |
+|:---:|:---:|:---:|
+| ![Home page](docs/screenshots/home.png) | ![Detail modal](docs/screenshots/detail-modal.png) | ![Add opportunity form](docs/screenshots/add-form.png) |
+
+**Suggested captures:**
+1. **home.png** — main page with the opportunity grid and category filter  
+2. **detail-modal.png** — card popup with full description and location  
+3. **add-form.png** — add/edit modal or logged-in navbar  
+
+---
+
 ## Project description
 
 **Tech Community** is a full-stack resource board where people in tech can browse, share, and manage opportunities—internships, programs, events, learning resources, and more.
@@ -61,45 +76,23 @@ The frontend talks **only** to the Express API via `fetch()`. It never connects 
 
 ---
 
-## How to run it
+## How to run locally
 
-### Option 1 — Live site (recommended)
+**Easiest:** open the **Live app** link at the top. Nothing to install.
 
-Open the **Live app** link at the top. Nothing to install. This is what I used for development testing and what graders should use.
-
-| Service | URL |
-|---------|-----|
-| Frontend | https://tech-community-mackaylarodriguezs-projects.vercel.app |
-| Backend API | https://tech-community-fjp6.onrender.com |
-
----
-
-### Option 2 — Frontend only on your computer (optional)
-
-Use this if you want to change the UI. It uses the **live API** — no database or backend setup.
+To run the **frontend** on your computer (optional):
 
 ```bash
 git clone https://github.com/mackaylarodriguez/tech-community.git
 cd tech-community/client
 npm install
+cp .env.example .env.local
 npm run dev
-```
-
-Create **`client/.env.local`** before starting (if it's not already there):
-
-```env
-NEXT_PUBLIC_API_URL=https://tech-community-fjp6.onrender.com
 ```
 
 Open **http://localhost:3000**.
 
----
-
-### Option 3 — Full stack locally (advanced, not required)
-
-Only needed if you want to run the Express server on your machine too. Copy `server/env.example` to `server/.env`, add your Supabase credentials and a `JWT_SECRET`, then run `npm run dev` in both `server/` and `client/` (with `NEXT_PUBLIC_API_URL=http://localhost:3001` in `.env.local`).
-
-See `server/env.example` for the env vars.
+That's it — no backend, database, or Supabase setup. The local frontend uses the deployed API on Render.
 
 ---
 
