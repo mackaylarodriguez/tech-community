@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Live app** | https://tech-community-mackaylarodriguezs-projects.vercel.app |
-| **Demo video** | [Paste your video link here](https://) |
+| **Demo video** |  |
 | **Demo email** | `demo@gmail.com` |
 | **Demo password** | `Demo1234!` |
 
