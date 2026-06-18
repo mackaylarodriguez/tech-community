@@ -9,9 +9,11 @@ A full-stack community resource board where people in tech can browse, share, an
 | | |
 |---|---|
 | **Live app** | https://tech-community-mackaylarodriguezs-projects.vercel.app |
-| **Demo video** | https://www.loom.com/share/848c96df7df348dba5eedcf3bd1b5b5f |
 | **Demo email** | `demo@gmail.com` |
 | **Demo password** | `Demo1234!` |
+
+##Demo Video
+[![Watch the Demo](https://www.loom.com/share/848c96df7df348dba5eedcf3bd1b5b5f)
 
 ---
 
