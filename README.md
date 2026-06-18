@@ -53,6 +53,21 @@ In our TKH Slack, fellows share useful links across different channels, but they
   **Why:** So resources are tied to real users and no one can change or remove someone else's post.
 - **Responsive design** — layout adapts from phone to desktop using CSS Grid and media queries.
   **Why:** Opportunities are often checked on a phone, so the app needed to work on any screen size.
+
+---
+
+## Known bugs & limitations
+
+- **Render free tier cold starts:** The API may take 30–60 seconds to respond if it has been idle.
+
+---
+
+## What I'd do differently / add with more time
+
+- **Password reset** — email flow for forgotten passwords
+- **Filter by location** — e.g. Remote, NYC, etc.
+- **Separate Tabs** — expand it into separate sections — tabs for **resources**, **learning**, **events**, and more 
+  
 ---
 
 ## Project structure
@@ -221,20 +236,6 @@ You should see:
 ```
 
 Open your browser and go to **http://localhost:3000** to view the app.
-
----
-
-## Known bugs & limitations
-
-- **Render free tier cold starts:** The API may take 30–60 seconds to respond if it has been idle.
-
----
-
-## What I'd do differently / add with more time
-
-- **Password reset** — email flow for forgotten passwords
-- **Filter by location** — e.g. Remote, NYC, etc.
-- **Separate Tabs** - expand it into separate sections — tabs for **resources**, **learning**, **events**, and more 
 
 ---
 
