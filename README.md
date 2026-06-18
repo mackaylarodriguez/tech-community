@@ -1,9 +1,12 @@
-# Tech Community
+# Tech Community - Community Resource Board
+
+A full-stack community resource board where people in tech can browse, share, and manage opportunities — internships, programs, events, and more.
+
+---
 
 ## Demo & login
 
 | | |
-|---|---|
 | **Live app** | https://tech-community-mackaylarodriguezs-projects.vercel.app |
 | **Demo video** |  |
 | **Demo email** | `demo@gmail.com` |
