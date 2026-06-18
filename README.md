@@ -25,9 +25,7 @@ A full-stack community resource board where people in tech can browse, share, an
 
 ## Project description
 
-**Tech Community** is a full-stack resource board where people in tech can browse, share, and manage opportunities—internships, programs, events, learning resources, and more.
-
-**Theme:** Community resource board for the Web Developer Apprenticeship (718 Digital Labs / The Knowledge House). Users can discover opportunities by category, see organization and location details, and (when logged in) add their own listings. Only the person who created a resource can edit or delete it.
+In our TKH Slack, fellows share useful links across different channels, but they get buried fast. **Tech Community** was created for The Knowledge House fellows to share opportunities and great resources in one place where you can browse, filter, and post listings. 
 
 **What you can do:**
 - Browse all opportunities (no login required)
@@ -40,114 +38,206 @@ A full-stack community resource board where people in tech can browse, share, an
 
 ## Tech stack
 
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | Next.js (React), CSS |
-| **Backend** | Node.js, Express.js |
-| **Database** | PostgreSQL (Supabase) |
-| **Auth** | bcrypt + JWT (custom, not Supabase Auth) |
-| **Deployment** | Vercel (client), Render (server), Supabase (DB) |
-
-The frontend talks **only** to the Express API via `fetch()`. It never connects to Supabase directly.
+| Layer          | Technology               |
+|----------------|--------------------------|
+| **Frontend**   | Next.js (React), CSS     |
+| **Backend**    | Node.js, Express.js      |
+| **Database**   | PostgreSQL (Supabase)    |
+| **Deployment** | Vercel, Render, Supabase |
 
 ---
 
-## Bonus features included
+## Bonus features
 
-### Authentication (user login/accounts)
-- Email/password registration and login
-- Passwords hashed with **bcrypt** before storage
-- **JWT** tokens for session management
-- Protected routes: create, update, and delete require a valid token
-- **Resource ownership:** only the creator can edit/delete their posts
-- Public read: anyone can view the list without logging in
-
-**Why:** Keeps auth logic on the Express server alongside the rest of the API, avoids vendor lock-in to Supabase Auth, and demonstrates core security concepts (hashing, tokens, middleware, authorization).
-
-### Responsive / mobile design
-- 4-column grid on laptop, 2 on tablet, 1 on phone
-- Navbar auth controls adapt for small screens
-- Modals for details and add/edit forms work on mobile
-
-**Why:** Opportunities are often browsed on a phone; the layout uses CSS Grid and media queries so the app stays usable at any screen size.
-
----
-
-## How to run locally
-
-**Easiest:** open the **Live app** link at the top. Nothing to install.
-
-To run the **frontend** on your computer (optional):
-
-```bash
-git clone https://github.com/mackaylarodriguez/tech-community.git
-cd tech-community/client
-npm install
-cp .env.example .env.local
-npm run dev
-```
-
-Open **http://localhost:3000**.
-
-That's it — no backend, database, or Supabase setup. The local frontend uses the deployed API on Render.
-
+- **Authentication** — register/login with bcrypt + JWT; only logged-in users can post; only the creator can edit or delete their own listings.
+  **Why:** So resources are tied to real users and no one can change or remove someone else's post.
+- **Responsive design** — layout adapts from phone to desktop using CSS Grid and media queries.
+  **Why:** Opportunities are often checked on a phone, so the app needed to work on any screen size.
 ---
 
 ## Project structure
-
 ```
-tech-community/
-├── client/          # Next.js frontend
-│   ├── app/         # Pages and global styles
-│   ├── components/  # UI components
-│   └── lib/         # API helpers, auth, constants
-├── server/          # Express backend
+├── client/                         # Next.js frontend (React)
+│   ├── app/
+│   │   ├── layout.js               # Root layout, fonts, metadata, wraps app in AppShell
+│   │   ├── page.js                 # Home page — renders HomeContent
+│   │   └── globals.css             # Global styles, layout grid, responsive breakpoints
+│   ├── components/
+│   │   ├── AppShell.js             # Navbar, auth controls, page wrapper
+│   │   ├── AuthProvider.js         # React context for login state across the app
+│   │   ├── AuthPanel.js            # Register / login form UI
+│   │   ├── HomeContent.js          # Main page logic — filter, add/edit/delete, modals
+│   │   ├── ResourceList.js         # Fetches resources from API, handles loading/errors
+│   │   ├── ResourceCard.js         # Single opportunity card in the grid
+│   │   ├── ResourceModal.js        # Popup with full opportunity details
+│   │   ├── AddResourceForm.js      # Form to create or update a resource
+│   │   ├── FormModal.js            # Modal wrapper for the add/edit form
+│   │   └── CategoryTag.js          # Colored category badge on each card
+│   ├── lib/
+│   │   ├── api.js                  # All fetch() calls to the Express API
+│   │   ├── auth.js                 # JWT token + user storage in localStorage
+│   │   └── constants.js            # Category list and shared frontend constants
+│   ├── public/                     # Static assets (icons, etc.)
+│   ├── .env.example                # Example frontend env vars (API URL)
+│   ├── next.config.mjs             # Next.js configuration
+│   └── vercel.json                 # Vercel deployment settings
+│
+├── server/                         # Express backend (Node.js)
 │   ├── controllers/
-│   ├── middleware/  # JWT auth middleware
+│   │   ├── resourceController.js   # CRUD logic for opportunities (GET/POST/PUT/DELETE)
+│   │   └── authController.js       # Register, login, and current-user logic
+│   ├── middleware/
+│   │   └── authMiddleware.js       # Verifies JWT on protected routes
 │   ├── routes/
-│   └── db/
-└── README.md
+│   │   ├── resources.js            # Maps /api/resources to resourceController
+│   │   └── auth.js                 # Maps /api/auth to authController
+│   ├── db/
+│   │   └── db.js                   # PostgreSQL connection pool (Supabase)
+│   ├── server.js                   # App entry point — CORS, routes, health check
+│   └── .env.example                # Example backend env vars (DB URL, JWT secret)
+│
+├── docs/
+    └── screenshots/                # README screenshots
+```
+---
+
+## Setup & Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mackaylarodriguez/tech-community.git
+cd tech-community
 ```
 
 ---
 
-## API overview
+### 2. Set Up the Database
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/resources` | No | List all opportunities |
-| POST | `/api/resources` | Yes | Create opportunity |
-| PUT | `/api/resources/:id` | Yes | Update (owner only) |
-| DELETE | `/api/resources/:id` | Yes | Delete (owner only) |
-| POST | `/api/auth/register` | No | Create account |
-| POST | `/api/auth/login` | No | Log in, receive JWT |
-| GET | `/api/auth/me` | Yes | Get current user |
-| GET | `/api/health` | No | Server + DB health check |
+This project uses **PostgreSQL on Supabase** (free tier). You do not need to install Postgres locally.
+
+1. Create a project at [supabase.com](https://supabase.com) (or use your existing one).
+2. Go to **Project Settings → Database** and copy your **connection string**.
+3. Make sure your `users` and `resources` tables already exist in Supabase (they should if you deployed the app).
+
+---
+
+### 3. Set Up the Backend
+
+Navigate to the server folder and install dependencies:
+
+```bash
+cd server
+npm install
+```
+
+Create your environment file:
+
+```bash
+cp .env.example .env
+```
+
+On Windows:
+
+```bash
+copy .env.example .env
+```
+
+Open `server/.env` and fill in your values:
+
+```env
+DATABASE_URL=your_supabase_connection_string
+JWT_SECRET=any_long_random_string
+PORT=3001
+```
+
+- `DATABASE_URL` — your Supabase PostgreSQL connection string
+- `JWT_SECRET` — any secret string (required for login)
+- `PORT=3001` — keeps the API off port 3000 so it doesn't clash with Next.js
+
+---
+
+### 4. Set Up the Frontend
+
+Navigate to the client folder and install dependencies:
+
+```bash
+cd ../client
+npm install
+```
+
+Create your environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+On Windows:
+
+```bash
+copy .env.example .env.local
+```
+
+Open `client/.env.local` and point it at your local backend:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+---
+
+## Running the Application
+
+You need two terminal windows — one for the backend, one for the frontend.
+
+**Terminal 1 — Start the Express backend:**
+
+```bash
+cd server
+npm run dev
+```
+
+You should see:
+
+```
+✅ Connected to PostgreSQL
+🚀 Server running on port 3001
+```
+
+Check **http://localhost:3001/api/health** to confirm the database is connected.
+
+**Terminal 2 — Start the Next.js frontend:**
+
+```bash
+cd client
+npm run dev
+```
+
+You should see:
+
+```
+▲ Next.js ...
+- Local: http://localhost:3000
+```
+
+Open your browser and go to **http://localhost:3000** to view the app.
 
 ---
 
 ## Known bugs & limitations
 
 - **Render free tier cold starts:** The API may take 30–60 seconds to respond if it has been idle.
-- **Legacy resources:** Posts created before auth may have no `user_id` or `location`; any logged-in user can edit/delete those until they are updated.
-- **JWT in localStorage:** Tokens are stored in the browser's localStorage (simple for learning; httpOnly cookies would be more secure in production).
-- **No password reset:** Users cannot recover a forgotten password yet.
-- **No automated tests:** The app was tested manually via the UI and Thunder Client.
 
 ---
 
 ## What I'd do differently / add with more time
 
-- **Automated tests** — Jest + supertest for API routes (register, login, protected CRUD)
 - **Password reset** — email flow for forgotten passwords
 - **Filter by location** — e.g. Remote, NYC, etc.
-- **httpOnly cookie auth** — more secure than localStorage for JWTs
-- **Toast notifications** — replace browser `alert()` for errors and success messages
-- **Skeleton loading states** — placeholder cards while data loads
-- **Architecture diagram** — visual auth flow for documentation
+- **Separate Tabs** - expand it into separate sections — tabs for **resources**, **learning**, **events**, and more 
 
 ---
 
 ## Author
 
-Mackayla Rodriguez — Web Developer Apprenticeship, The Knowledge House / 718 Digital Labs
+Mackayla Rodriguez 
