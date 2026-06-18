@@ -14,7 +14,7 @@ A full-stack community resource board where people in tech can browse, share, an
 
 ## Demo Video
 
-[![Watch the Demo](images/demo-thumbnail.png)](https://www.loom.com/share/848c96df7df348dba5eedcf3bd1b5b5f)
+https://www.loom.com/share/848c96df7df348dba5eedcf3bd1b5b5f
 
 ---
 
