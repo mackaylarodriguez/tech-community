@@ -7,6 +7,7 @@ A full-stack community resource board where people in tech can browse, share, an
 ## Demo & login
 
 | | |
+|---|---|
 | **Live app** | https://tech-community-mackaylarodriguezs-projects.vercel.app |
 | **Demo video** |  |
 | **Demo email** | `demo@gmail.com` |
